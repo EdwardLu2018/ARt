@@ -4,8 +4,12 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-class webscraper(object):
+from spellchecker import SpellChecker
 
+
+
+class webscraper(object):
+	
 	def make_soup(url):
 	    http = urllib3.PoolManager()
 	    r = http.request("GET", url)
@@ -39,15 +43,38 @@ class webscraper(object):
 		per_ind = para.find (".")
 		sent = para[0:per_ind + 1]
 		return (sent)
+
+	def get_birth_place (soup):
+		birth = soup.find_all (itemprop="birthPlace")[0].text
+		return (birth)
+
+	def spell_correct (artist):
+		spell = SpellChecker()
+		first_last = artist.split (" ")
+		for ind in range (0, len(first_last)):
+			first_last [ind] = spell.correction (first_last [ind])
+		a = ""
+		for name in first_last:
+			a+= name + " "
+		return (a.strip())
+
+
 	@staticmethod
 	def get_info_dict (artist):
+		artist = webscraper.spell_correct (artist)
 		d = dict()
 		soup = webscraper.soup_from_artist (artist)
-		numimgs = 4
+		numimgs = 5
+		d['birth_place'] = webscraper.get_birth_place (soup)
 		d["titles"] = webscraper.get_titles (soup, numimgs)
 		d["srcs"] = webscraper.get_srcs(soup, numimgs)
 		d["description"] = webscraper.get_description (soup)
-		return (d)
+		if d["titles"] == []:
+			d["artist_found"] = False
+		else:
+			d["artist_found"] = True
+		return d
+
 				
-print (webscraper.get_info_dict ("pablo picasso"))
+print (webscraper.get_info_dict ("pablo picass"))
 
