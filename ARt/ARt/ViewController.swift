@@ -154,7 +154,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARController {
         portalNode.addChildNode(floor)
         
         img1wall1 = Nodes.addImage(parent: leftWall, z: Float(Nodes.LENGTH/6), y: Float(Nodes.HEIGHT/6), image:#imageLiteral(resourceName: "not-found.png"))
-        img2wall1 = Nodes.addImage(parent: leftWall, z: -Float(Nodes.LENGTH/6), y: Float(Nodes.HEIGHT/6), image:#imageLiteral(resourceName: "not-found.png"))
+        img1wall2 = Nodes.addImage(parent: leftWall, z: -Float(Nodes.LENGTH/6), y: Float(Nodes.HEIGHT/6), image:#imageLiteral(resourceName: "not-found.png"))
         
         img3wall1 = Nodes.addImage(parent: rightWall, z: Float(Nodes.LENGTH/6), y: Float(Nodes.HEIGHT/6), image:#imageLiteral(resourceName: "not-found.png"))
         img3wall2 = Nodes.addImage(parent: rightWall, z: -Float(Nodes.LENGTH/6), y: Float(Nodes.HEIGHT/6), image:#imageLiteral(resourceName: "not-found.png"))

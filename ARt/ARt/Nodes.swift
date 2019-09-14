@@ -16,16 +16,15 @@ final class Nodes {
     
     class func wall(width: CGFloat  = Nodes.WIDTH,
                     height: CGFloat = Nodes.HEIGHT,
-                    length: CGFloat = Nodes.LENGTH) -> SCNNode {
+                    length: CGFloat = Nodes.LENGTH,
+                    image: UIImage = #imageLiteral(resourceName: "hardwood.jpg")) -> SCNNode {
         let node = SCNNode()
         
         let wall = SCNBox(width: width, height: height, length: length, chamferRadius: 0)
         wall.firstMaterial?.diffuse.contents = UIColor.gray
         wall.firstMaterial?.writesToDepthBuffer = true
         wall.firstMaterial?.readsFromDepthBuffer = true
-//        if let img = image {
-//            wall.firstMaterial?.diffuse.contents = img
-//        }
+        wall.firstMaterial?.diffuse.contents = image
         
         let wallNode = SCNNode(geometry: wall)
         wallNode.renderingOrder = 200

@@ -15,7 +15,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
     
-    var info: [String: String]? = Optional(["name":"Edward", "description": "cnwkecnnwckjwncjk", "titles" : "cwncnwjnekwjc\ncnwkcjewncjkw\ncnewnewjcnkjwe\n", "birthplace": "cewew"])
+    var info: [String: String]?
     
     var canGoBack = false
     
@@ -39,42 +39,32 @@ class SearchViewController: UIViewController {
                         }
         })
         
-        let spinner = UIActivityIndicatorView(style: .whiteLarge)
-        spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        spinner.startAnimating()
-        view.addSubview(spinner)
-        
         deleteImages()
         
         getInfo(textField.text!, "http://128.237.211.240:5000/process_artist")
         
-//        getArtInfo("http://128.237.211.240:5000/pic1") {
+        getArtInfo("http://128.237.211.240:5000/pic1") {
 //            self.updateImages()
-//        }
-//        getArtInfo("http://128.237.211.240:5000/pic2") {
-//            self.updateImages()
-//        }
-//        getArtInfo("http://128.237.211.240:5000/pic3") {
-//            self.updateImages()
-//        }
-//        getArtInfo("http://128.237.211.240:5000/pic4") {
-//            self.updateImages()
-//        }
-//        getArtInfo("http://128.237.211.240:5000/pic5") {
-//            self.updateImages()
-//        }
-//        getArtInfo("http://128.237.211.240:5000/pic6") {
-//            self.updateImages()
-//        }
+        }
         
-        self.delegate?.changeName(name: info!["name"]!)
-        self.delegate?.changeDescript(des: info!["description"]!)
-        self.delegate?.changeArtist(art: info!["titles"]!)
-        self.delegate?.changeBirthplace(place: info!["birthplace"]!)
+        getArtInfo("http://128.237.211.240:5000/pic2") {
+//            self.updateImages()
+        }
         
-        if canGoBack {
-            self.dismiss(animated: false, completion: nil)
+        getArtInfo("http://128.237.211.240:5000/pic3") {
+//            self.updateImages()
+        }
+        getArtInfo("http://128.237.211.240:5000/pic4") {
+//            self.updateImages()
+        }
+        getArtInfo("http://128.237.211.240:5000/pic5") {
+//            self.updateImages()
+        }
+        getArtInfo("http://128.237.211.240:5000/pic6") {
+            self.updateImages()
+            if self.canGoBack {
+                self.dismiss(animated: false, completion: nil)
+            }
         }
         
     }
@@ -89,7 +79,10 @@ class SearchViewController: UIViewController {
             case .success:
                 if let resp = response.result.value {
                     self.info = resp as? [String:String]
-                    print(self.info!)
+                    self.delegate?.changeName(name: self.info!["artist"]!)
+                    self.delegate?.changeDescript(des: self.info!["description"]!)
+                    self.delegate?.changeArtist(art: self.info!["titles"]!)
+                    self.delegate?.changeBirthplace(place: self.info!["birth_place"]!)
                 }
                 break
             case .failure(let error):
@@ -142,7 +135,9 @@ class SearchViewController: UIViewController {
                 print(idx, fileurl)
                 let imageData = try Data(contentsOf: fileurl)
                 if let image = UIImage(data: imageData) {
-                    (delegate!.imgs[idx])!.firstMaterial?.diffuse.contents = image
+                    if let im = delegate?.imgs[idx] {
+                        im.firstMaterial?.diffuse.contents = image
+                    }
                 }
                 idx += 1
             }
