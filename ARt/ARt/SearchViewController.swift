@@ -39,6 +39,8 @@ class SearchViewController: UIViewController {
                         }
         })
         
+        delegate?.actionLabel.text! = "Loading Images"
+        
         deleteImages()
         
         getInfo(textField.text!, "http://128.237.211.240:5000/process_artist")
@@ -62,9 +64,11 @@ class SearchViewController: UIViewController {
         }
         getArtInfo("http://128.237.211.240:5000/pic6") {
             self.updateImages()
-            if self.canGoBack {
-                self.dismiss(animated: false, completion: nil)
-            }
+        }
+        
+        if canGoBack {
+            self.dismiss(animated: false, completion: nil)
+            delegate?.actionLabel.text! = "Done! Enjoy!"
         }
         
     }
@@ -87,6 +91,7 @@ class SearchViewController: UIViewController {
                 break
             case .failure(let error):
                 self.canGoBack = false
+                self.delegate?.actionLabel.text! = "Failed to load images, try again."
                 print(error)
             }
         }
@@ -104,6 +109,7 @@ class SearchViewController: UIViewController {
                     break
                 case .failure(let error):
                     print(error)
+                    self.delegate?.actionLabel.text! = "Failed to load images, try again."
                     self.canGoBack = false
                     break
                 }

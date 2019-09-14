@@ -11,13 +11,15 @@ import SceneKit
 import ARKit
 
 protocol ARController {
-    var imgs: [SCNBox?] {get set}
+    var imgs: [SCNBox?] { get set }
     func changeImg(thing: SCNBox, img: UIImage)
     
     func changeName(name: String)
     func changeDescript(des: String)
     func changeArtist(art: String)
     func changeBirthplace(place: String)
+    
+    var actionLabel: UILabel { get set }
 }
 
 class ViewController: UIViewController, ARSCNViewDelegate, ARController {
@@ -63,9 +65,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARController {
         
         sceneView.delegate = self
         configureLighting()
-        
-        actionLabel.text = "Tap on the Screen!"
-        
+                
         actionLabel.frame = CGRect(x: 15, y: 25, width: self.view.frame.width-30, height: 30)
         actionLabel.clipsToBounds = true
         actionLabel.layer.cornerRadius = 15
@@ -108,7 +108,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARController {
     override func viewDidAppear(_ animated: Bool) {
         if sceneHasPortal { removeAllNodes() }
         
-        actionLabel.text = "Added Portal"
+        actionLabel.text = "Loading Images..."
         sceneHasPortal = true
         
         let portalNode = SCNNode()
