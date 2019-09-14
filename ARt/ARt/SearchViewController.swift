@@ -39,6 +39,12 @@ class SearchViewController: UIViewController {
                         }
         })
         
+        let spinner = UIActivityIndicatorView(style: .whiteLarge)
+        spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        spinner.startAnimating()
+        view.addSubview(spinner)
+        
         deleteImages()
         
         getInfo(textField.text!, "http://128.237.211.240:5000/process_artist")
@@ -159,7 +165,7 @@ class SearchViewController: UIViewController {
                         }
         })
 //        if canGoBack {
-            self.dismiss(animated: false, completion: nil)
+            self.dismiss(animated: true, completion: nil)
 //        }
         
     }

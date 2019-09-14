@@ -43,7 +43,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARController {
     var infoViewController: InfoViewController!
     var visualEffectView: UIVisualEffectView!
     
-    let infoVCHeight: CGFloat = 620
+    let infoVCHeight: CGFloat = 640
     let infoVCHandleArea: CGFloat = 40
     
     var infoVCVisible = false
