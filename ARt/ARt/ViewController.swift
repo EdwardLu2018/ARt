@@ -14,6 +14,7 @@ protocol ARController {
     var imgs: [SCNBox?] {get set}
     func changeImg(thing: SCNBox, img: UIImage)
     
+    func changeName(name: String)
     func changeDescript(des: String)
     func changeArtist(art: String)
     func changeBirthplace(place: String)
@@ -110,10 +111,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARController {
         actionLabel.text = "Added Portal"
         sceneHasPortal = true
         
-        let hitWorldCoor = SCNVector3Make(0,0,0)
-        
         let portalNode = SCNNode()
-        portalNode.position = hitWorldCoor
+        portalNode.position = SCNVector3Make(1,0,0)
         
         let doorLeft = Nodes.wall(length: Nodes.LENGTH / 3)
         doorLeft.position = SCNVector3.init(-Nodes.LENGTH / 3 + Nodes.WIDTH / 2, 0, Nodes.LENGTH / 2 - Nodes.WIDTH / 2)
@@ -312,6 +311,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARController {
         sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
             node.removeFromParentNode()
         }
+    }
+    
+    func changeName(name: String) {
+        infoViewController.name.text! = name
     }
     
     func changeDescript(des: String) {

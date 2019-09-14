@@ -10,6 +10,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
+    @IBOutlet weak var name: UILabel!
     @IBOutlet weak var paintings: UILabel!
     @IBOutlet weak var birthplace: UILabel!
     @IBOutlet weak var descript: UILabel!

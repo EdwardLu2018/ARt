@@ -15,7 +15,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
     
-    var info: [String: String]?
+    var info: [String: String]? = Optional(["name":"Edward", "description": "cnwkecnnwckjwncjk", "titles" : "cwncnwjnekwjc\ncnwkcjewncjkw\ncnewnewjcnkjwe\n", "birthplace": "cewew"])
     
     var canGoBack = false
     
@@ -40,35 +40,32 @@ class SearchViewController: UIViewController {
         })
         
         deleteImages()
-        getInfo(textField.text!, "http://128.237.211.240:5000/process_artist")
-        getArtInfo("http://128.237.211.240:5000/pic1") {
-//            print("Returned String Data is: \(workingData.responseDataString)")
-            self.updateImages()
-        }
-        getArtInfo("http://128.237.211.240:5000/pic2") {
-            //            print("Returned String Data is: \(workingData.responseDataString)")
-            self.updateImages()
-        }
-        getArtInfo("http://128.237.211.240:5000/pic3") {
-            //            print("Returned String Data is: \(workingData.responseDataString)")
-            self.updateImages()
-        }
-        getArtInfo("http://128.237.211.240:5000/pic4") {
-            //            print("Returned String Data is: \(workingData.responseDataString)")
-            self.updateImages()
-        }
-        getArtInfo("http://128.237.211.240:5000/pic5") {
-            //            print("Returned String Data is: \(workingData.responseDataString)")
-            self.updateImages()
-        }
-        getArtInfo("http://128.237.211.240:5000/pic6") {
-            //            print("Returned String Data is: \(workingData.responseDataString)")
-            self.updateImages()
-        }
         
-//        self.delegate?.changeDescript(des: info!["description"]!)
-//        self.delegate?.changeArtist(art: info!["titles"]!)
-//        self.delegate?.changeBirthplace(place: info!["birthplace"]!)
+        getInfo(textField.text!, "http://128.237.211.240:5000/process_artist")
+        
+//        getArtInfo("http://128.237.211.240:5000/pic1") {
+//            self.updateImages()
+//        }
+//        getArtInfo("http://128.237.211.240:5000/pic2") {
+//            self.updateImages()
+//        }
+//        getArtInfo("http://128.237.211.240:5000/pic3") {
+//            self.updateImages()
+//        }
+//        getArtInfo("http://128.237.211.240:5000/pic4") {
+//            self.updateImages()
+//        }
+//        getArtInfo("http://128.237.211.240:5000/pic5") {
+//            self.updateImages()
+//        }
+//        getArtInfo("http://128.237.211.240:5000/pic6") {
+//            self.updateImages()
+//        }
+        
+        self.delegate?.changeName(name: info!["name"]!)
+        self.delegate?.changeDescript(des: info!["description"]!)
+        self.delegate?.changeArtist(art: info!["titles"]!)
+        self.delegate?.changeBirthplace(place: info!["birthplace"]!)
         
         if canGoBack {
             self.dismiss(animated: false, completion: nil)
@@ -161,9 +158,9 @@ class SearchViewController: UIViewController {
                             self.backButton.transform = CGAffineTransform.identity
                         }
         })
-        if canGoBack {
+//        if canGoBack {
             self.dismiss(animated: false, completion: nil)
-        }
+//        }
         
     }
 
