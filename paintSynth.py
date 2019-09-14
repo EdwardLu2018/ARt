@@ -41,7 +41,7 @@ def getImages(imageList):
 		bordered = ImageOps.expand(pilImg, border = borderIn, fill = "white")
 		#add border to fit 2:1 ratio
 		resized = bordered.resize((350,700))
-
+		
 		imgByteArr = io.BytesIO()
 		resized.save(imgByteArr, format='PNG')
 		imgByteArr = imgByteArr.getvalue() 
